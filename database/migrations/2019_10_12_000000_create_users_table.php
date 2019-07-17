@@ -26,9 +26,9 @@ class CreateUsersTable extends Migration
             $table->string('email', 200)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 200);
-            $table->bigInteger('jmbg')->nullable();
-            $table->integer('role_id', false, true)->length(10)->nullable();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
+            $table->integer('jmbg', false, true)->nullable()->unsigned();
+            //$table->integer('role_id', false, true)->length(10)->nullable();
+            //$table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
             $table->boolean('active')->default(1);
             $table->rememberToken();
             $table->timestamps();

@@ -38,10 +38,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //one to one
-    public function role(){
-        return $this->belongsTo('App\Role'); //second parametar sending if is conection to id is not in this case user_id
-    }
+    // //one to one
+    // public function role(){
+    //     return $this->belongsTo('App\Role'); //second parametar sending if is conection to id is not in this case user_id
+    // }
 
     public function roles(){
         return $this->belongsToMany('App\Role'); 
