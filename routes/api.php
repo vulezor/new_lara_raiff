@@ -25,3 +25,4 @@ Route::middleware('auth:api')->post('/test', 'Api\AuthController@test');
 
 Route::middleware('auth:api')->post('/insert_roles', 'Api\AuthController@insert_roles');
 
+Route::middleware('auth:api')->post('/logout', 'Api\AuthController@logout');
