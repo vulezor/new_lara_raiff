@@ -25,7 +25,7 @@ class CreateClientsTable extends Migration
             $table->foreign('place_id')->references('id')->on('places')->onDelete('set null');
             $table->integer('brlk', false, true)->nullable();
             $table->string('sup', 250)->nullable();
-            $table->bigIncrements('jmbg')->nullable();
+            $table->string('jmbg', 100)->nullable();
             $table->string('telephone', 250)->nullable();
             $table->string('cell', 250)->nullable();
             $table->string('fax', 250)->nullable();

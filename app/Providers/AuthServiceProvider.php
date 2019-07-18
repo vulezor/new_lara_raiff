@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Providers;
+
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -25,5 +27,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::routes();
+
+        Passport::tokensExpireIn(now()->addDays(1));
+
+        Passport::refreshTokensExpireIn(now()->addDays(15));
+
+        Passport::personalAccessTokensExpireIn(now()->addMonths(3));
     }
 }

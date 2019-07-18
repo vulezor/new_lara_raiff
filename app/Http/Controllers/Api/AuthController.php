@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
 use App\Http\Resources\Users as UserResource;
-
+use Laravel\Passport\HasApiTokens;
 class AuthController extends Controller
 {
     
@@ -40,10 +40,11 @@ class AuthController extends Controller
             return response(['user'=>auth()->user(), 'access_token'=>$accessToken]);
     }
 
-    public function logout(){
-        if (Auth::check()) {
-            Auth::user()->AauthAcessToken()->delete();
-         }
+    public function logout(Request $request){
+        auth()->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
     }
 
     public function test(){
