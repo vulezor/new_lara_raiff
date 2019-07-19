@@ -24,7 +24,7 @@ class Users extends JsonResource
             'address' => $this->address,
             'jmbg' => $this->jmbg,
             'role_id'=>$this->role_id,
-            'role'=> RoleResource::collection($this->roles),
+            'roles'=> RoleResource::collection($this->roles),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
