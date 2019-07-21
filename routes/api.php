@@ -17,11 +17,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::post('/register', 'Api\AuthController@register');
 
 Route::post('/login', 'Api\AuthController@login');
 
-Route::middleware('auth:api')->post('/test', 'Api\AuthController@test');
+Route::middleware('auth:api')->get('/test/{id}', 'Api\AuthController@test');
 
 Route::middleware('auth:api')->post('/insert_roles', 'Api\AuthController@insert_roles');
 

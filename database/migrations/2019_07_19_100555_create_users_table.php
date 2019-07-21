@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->integer('id', 10)->unsigned();
             $table->string('name', 250);
             $table->string('last_name', 250);
-            $table->integer('place_id', false, true)->length(10);
+            $table->integer('place_id', false, true)->nullable()->length(10);
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
-            $table->integer('wearehouse_id', false, true)->length(10);
+            $table->integer('wearehouse_id', false, true)->nullable()->length(10);
             $table->foreign('wearehouse_id')->references('id')->on('wearehouses')->onDelete('cascade');
             $table->string('address', 250)->nullable();
             $table->string('email', 200)->unique();

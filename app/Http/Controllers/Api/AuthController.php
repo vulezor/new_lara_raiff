@@ -4,11 +4,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
+use App\Exceptions\Handler;
 use App\Http\Resources\Users as UserResource;
 use Laravel\Passport\HasApiTokens;
+use App\Http\Controllers\SwaggerAnnotations;
+
 class AuthController extends Controller
 {
-    
+
     public function register(Request $request){
         
         $validatedData = $request->validate(
@@ -21,7 +24,7 @@ class AuthController extends Controller
             $validatedData['password'] = bcrypt($request->password);
             $user = User::create($validatedData);
             $accessToken = $user->createToken('authToken')->accessToken;
-            return response(['user'=>$user, 'token'=>$accessToken]);
+            return response()->json(['user'=>$user, 'token'=>$accessToken]);
     }
 
     public function login(Request $request){
@@ -47,9 +50,13 @@ class AuthController extends Controller
         ]);
     }
 
-    public function test(){
-        return new UserResource(User::find(1));
-        
+
+    public function test($id){
+        try{
+            return new UserResource(User::find($id));
+        } catch(Exception $e){
+            return response()->json($e->ErrorException);
+        }  
     }
 
     public function insert_roles(){
@@ -61,7 +68,7 @@ class AuthController extends Controller
             $user->roles()->attach($number);
         }
         
-         return response($user->roles);
+         return response()->json($user->roles);
     }
 }
 
