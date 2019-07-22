@@ -2,6 +2,73 @@
 namespace App\Http\Controllers\SwaggerAnnotations;
  /**
  * @OA\Post(
+ *      path="/api/register",
+ *      operationId="registerUser",
+ *      tags={"Auth"},
+ *      summary="Register User",
+ *      description="Register User",
+ *      @OA\Parameter(
+ *          name="name",
+ *          description="Name",
+ *          required=true,
+ *          in="query",
+ *          @OA\Schema(
+ *              type="string",
+ *              format="text"
+ *          )
+ *      ),
+ *      @OA\Parameter(
+ *          name="last_name",
+ *          description="Last Name",
+ *          required=true,
+ *          in="query",
+ *          @OA\Schema(
+ *              type="string",
+ *              format="text"
+ *          )
+ *      ),
+ *      @OA\Parameter(
+ *          name="email",
+ *          description="Email",
+ *          required=true,
+ *          in="query",
+ *          @OA\Schema(
+ *              type="string",
+ *              format="email"
+ *          )
+ *      ),
+ *      @OA\Parameter(
+ *          name="password",
+ *          description="Password",
+ *          required=true,
+ *          in="query",
+ *          @OA\Schema(
+ *              type="string",
+ *              format="password"
+ *          )
+ *      ),
+ *      @OA\Parameter(
+ *          name="password_confirmation",
+ *          description="Pasword Confirmation",
+ *          required=true,
+ *          in="query",
+ *          @OA\Schema(
+ *              type="string",
+ *              format="password"
+ *          )
+ *      ),
+ *      @OA\Response(
+ *          response=200,
+ *          description="successful operation"
+ *      ),
+ *      @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent()),
+ *      @OA\Response(response=400, description="Bad request", @OA\JsonContent()),
+ *      @OA\Response(response=401, description="Not Authorized", @OA\JsonContent()),
+ *      @OA\Response(response=404, description="Resource Not Found", @OA\JsonContent())
+ *)
+ */
+/** 
+ * @OA\Post(
  *      path="/api/login",
  *      operationId="loginUser",
  *      tags={"Auth"},
@@ -31,9 +98,10 @@ namespace App\Http\Controllers\SwaggerAnnotations;
  *          response=200,
  *          description="successful operation"
  *      ),
- *      @OA\Response(response=400, description="Bad request"),
- *      @OA\Response(response=401, description="Not Authorized"),
- *      @OA\Response(response=404, description="Resource Not Found")
+ *      @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent()),
+ *      @OA\Response(response=400, description="Bad request", @OA\JsonContent()),
+ *      @OA\Response(response=401, description="Not Authorized", @OA\JsonContent()),
+ *      @OA\Response(response=404, description="Resource Not Found", @OA\JsonContent())
  *     
  * )
  */
