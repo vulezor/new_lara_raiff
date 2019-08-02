@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "",
+            "url": "http://lara.loc/",
             "description": "L5 Swagger Open localhost api server"
         },
         {
