@@ -50,6 +50,13 @@ class AuthController extends Controller
         ]);
     }
 
+    public function getCurrentUser(){
+        try{
+            return new UserResource(User::find(auth()->user()->id));
+        } catch(Exception $e){
+            return response()->json($e->ErrorException);
+        }  
+    }
 
     public function test($id){
         try{

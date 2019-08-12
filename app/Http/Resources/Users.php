@@ -25,8 +25,8 @@ class Users extends JsonResource
             'jmbg' => $this->jmbg,
             'role_id'=>$this->role_id,
             'roles'=> RoleResource::collection($this->roles),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+           // 'created_at' => $this->created_at,
+           // 'updated_at' => $this->updated_at,
         ];
     }
 }

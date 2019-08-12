@@ -108,6 +108,29 @@ namespace App\Http\Controllers\SwaggerAnnotations;
 
  /**
  * @OA\Get(
+ *      path="/api/get_current_user",
+ *      operationId="getCurrentUser",
+ *      tags={"Auth"},
+ *      summary="Get current user",
+ *      description="Returns User data",
+ *      @OA\Response(
+ *          response=200,
+ *          description="successful operation", @OA\JsonContent()
+ *       ),
+ *      @OA\Response(response=400, description="Bad request", @OA\JsonContent()),
+ *      @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent()),
+ *      @OA\Response(response=401, description="Not Authorized", @OA\JsonContent()),
+ *      @OA\Response(response=404, description="Resource Not Found",@OA\JsonContent()),
+ *      security={
+ *           {"bearerAuth": {}}
+ *       }
+ *     
+ * )
+ */
+
+
+ /**
+ * @OA\Get(
  *      path="/api/test/{id}",
  *      operationId="getUserById",
  *      tags={"Test"},
