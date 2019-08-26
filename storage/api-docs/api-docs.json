@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://lara.loc/",
+            "url": "",
             "description": "L5 Swagger Open localhost api server"
         },
         {
@@ -172,6 +172,59 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Resource Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/refresh_token": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "get token by refresh token",
+                "description": "get token by refresh token",
+                "operationId": "refresh_token",
+                "parameters": [
+                    {
+                        "name": "refresh_token",
+                        "in": "query",
+                        "description": "Refresh Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not Authorized"
                     },
                     "404": {
                         "description": "Resource Not Found",

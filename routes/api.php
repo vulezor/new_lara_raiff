@@ -17,10 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::post('/register', 'Api\AuthController@register');
-
 Route::post('/login', 'Api\AuthController@login');
+Route::post('/logini', 'Api\AuthController@login2');
+
+Route::post('/refresh_token', 'Api\AuthController@refreshToken');
 
 //auth controller methods
 Route::middleware('auth:api')->get('/test/{id}', 'Api\AuthController@test');

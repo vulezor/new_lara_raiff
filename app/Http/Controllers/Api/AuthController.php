@@ -8,9 +8,19 @@ use App\Exceptions\Handler;
 use App\Http\Resources\Users as UserResource;
 use Laravel\Passport\HasApiTokens;
 use App\Http\Controllers\SwaggerAnnotations;
-
+use Carbon\Carbon;
+use GuzzleHttp;
 class AuthController extends Controller
 {
+
+            // if(!auth()->attempt($loginData)){
+            //     return response(['message'=>'Invalid cerdentials']);
+            // }
+            // $accessToken = $credentials();
+            // $token = $accessToken->token;
+            // $token->expires_at = Carbon::now()->addHour();
+            // $token->save();
+            // $tokenExpiresAt = Carbon::parse($accessToken->token->expires_at);
 
     public function register(Request $request){
         
@@ -38,10 +48,11 @@ class AuthController extends Controller
                 return response(['message'=>'Invalid cerdentials']);
             }
 
-            $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
-            return response(['user'=>auth()->user(), 'access_token'=>$accessToken]);
+            $accessToken = $this->credentials($request);
+            return response(['user'=>auth()->user(), 'token_data'=>$accessToken]);
     }
+
+   
 
     public function logout(Request $request){
         auth()->user()->token()->revoke();
@@ -76,6 +87,33 @@ class AuthController extends Controller
         }
         
          return response()->json($user->roles);
+    }
+
+    private function credentials($request){
+        $http = new GuzzleHttp\Client;
+        $response = $http->post('http://lara.loc/oauth/token', [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => '2',
+                'client_secret' => 'uGkrVGPZXiowyOq4VnLbb8m10U8y4UzvUhTHYODU',
+                'username' => $request->input('email'),
+                'password' => $request->input('password'),
+            ],
+        ]);
+        return json_decode((string) $response->getBody(), true);
+    }
+
+    public function refreshToken(Request $request){
+        $http = new GuzzleHttp\Client;
+        $response = $http->post('http://lara.loc/oauth/token', [
+            'form_params' => [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $request->input('refresh_token'),
+                'client_id' => '2',
+                'client_secret' => 'uGkrVGPZXiowyOq4VnLbb8m10U8y4UzvUhTHYODU',
+            ],
+        ]);
+        return json_decode((string) $response->getBody(), true);
     }
 }
 

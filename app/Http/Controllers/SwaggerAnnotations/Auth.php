@@ -107,6 +107,30 @@ namespace App\Http\Controllers\SwaggerAnnotations;
  */
 
  /**
+ * @OA\Post(
+ *      path="/api/refresh_token",
+ *      operationId="refresh_token",
+ *      tags={"Auth"},
+ *      summary="get token by refresh token",
+ *      description="get token by refresh token",
+*          @OA\Parameter(
+ *          name="refresh_token",
+ *          description="Refresh Token",
+ *          required=true,
+ *          in="query",
+ *          @OA\Schema(
+ *              type="string"
+ *          )
+ *      ),
+ *      @OA\Response(response=200, description="successful operation"),
+ *      @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent()),
+ *      @OA\Response(response=400, description="Bad request",@OA\JsonContent()),
+ *      @OA\Response(response=401, description="Not Authorized"),
+ *      @OA\Response(response=404, description="Resource Not Found", @OA\JsonContent())
+ * )
+ */
+
+ /**
  * @OA\Get(
  *      path="/api/get_current_user",
  *      operationId="getCurrentUser",
