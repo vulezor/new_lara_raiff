@@ -13,17 +13,11 @@ use GuzzleHttp;
 class AuthController extends Controller
 {
 
-            // if(!auth()->attempt($loginData)){
-            //     return response(['message'=>'Invalid cerdentials']);
-            // }
-            // $accessToken = $credentials();
-            // $token = $accessToken->token;
-            // $token->expires_at = Carbon::now()->addHour();
-            // $token->save();
-            // $tokenExpiresAt = Carbon::parse($accessToken->token->expires_at);
-
+    /**
+     * @param { Request } $request 
+     * @description send user data to register on app
+     */
     public function register(Request $request){
-        
         $validatedData = $request->validate(
             [
                 'name'=>'required | max:55',
@@ -33,10 +27,13 @@ class AuthController extends Controller
             ]);
             $validatedData['password'] = bcrypt($request->password);
             $user = User::create($validatedData);
-            $accessToken = $user->createToken('authToken')->accessToken;
+            $accessToken = $this->credentials($request);//$user->createToken('authToken')->accessToken;
             return response()->json(['user'=>$user, 'token'=>$accessToken]);
     }
 
+    /**
+     * @description Login into the app
+     */
     public function login(Request $request){
         $loginData = $request->validate(
             [
@@ -49,11 +46,13 @@ class AuthController extends Controller
             }
 
             $accessToken = $this->credentials($request);
-            return response(['user'=>auth()->user(), 'token_data'=>$accessToken]);
+            return response(['user'=>getCurrentUser(), 'token_data'=>$accessToken]);
     }
 
    
-
+    /**
+     * @description logout from the app
+     */
     public function logout(Request $request){
         auth()->user()->token()->revoke();
         return response()->json([
@@ -61,6 +60,9 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @description return current user from database from middleware
+     */
     public function getCurrentUser(){
         try{
             return new UserResource(User::find(auth()->user()->id));
@@ -79,16 +81,18 @@ class AuthController extends Controller
 
     public function insert_roles(){
         $user = User::find(1);
-          
-
         $numbers = [1,2,3];
         foreach ($numbers as $number) {
             $user->roles()->attach($number);
         }
-        
          return response()->json($user->roles);
     }
 
+    /**
+     * @param { Request } $request
+     * @return { object }
+     * @description return credential data 
+     */
     private function credentials($request){
         $http = new GuzzleHttp\Client;
         $response = $http->post('http://lara.loc/oauth/token', [
@@ -103,6 +107,11 @@ class AuthController extends Controller
         return json_decode((string) $response->getBody(), true);
     }
 
+     /**
+     * @param { Request } $request
+     * @return { object }
+     * @description return credential data from refresh token
+     */
     public function refreshToken(Request $request){
         $http = new GuzzleHttp\Client;
         $response = $http->post('http://lara.loc/oauth/token', [
