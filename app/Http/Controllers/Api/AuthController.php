@@ -13,10 +13,6 @@ use GuzzleHttp;
 class AuthController extends Controller
 {
 
-    /**
-     * @param { Request } $request 
-     * @description send user data to register on app
-     */
     public function register(Request $request){
         $validatedData = $request->validate(
             [
@@ -31,9 +27,6 @@ class AuthController extends Controller
             return response()->json(['user'=>$user, 'token'=>$accessToken]);
     }
 
-    /**
-     * @description Login into the app
-     */
     public function login(Request $request){
         $loginData = $request->validate(
             [
@@ -46,13 +39,12 @@ class AuthController extends Controller
             }
 
             $accessToken = $this->credentials($request);
-            return response(['user'=>getCurrentUser(), 'token_data'=>$accessToken]);
+
+            return response(['user'=>$this->getCurrentUser(), 'token_data'=>$accessToken]);
     }
 
    
-    /**
-     * @description logout from the app
-     */
+
     public function logout(Request $request){
         auth()->user()->token()->revoke();
         return response()->json([
