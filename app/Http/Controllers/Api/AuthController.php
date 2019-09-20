@@ -105,11 +105,12 @@ class AuthController extends Controller
      * @description return credential data from refresh token
      */
     public function refreshToken(Request $request){
+     
         $http = new GuzzleHttp\Client;
         $response = $http->post('http://lara.loc/oauth/token', [
             'form_params' => [
                 'grant_type' => 'refresh_token',
-                'refresh_token' => $request->input('refresh_token'),
+                'refresh_token' => $request->getContent(),//$request->input('refresh_token'),
                 'client_id' => '2',
                 'client_secret' => 'uGkrVGPZXiowyOq4VnLbb8m10U8y4UzvUhTHYODU',
             ],

@@ -22,6 +22,7 @@ Route::post('/login', 'Api\AuthController@login');
 Route::post('/logini', 'Api\AuthController@login2');
 
 Route::post('/refresh_token', 'Api\AuthController@refreshToken');
+Route::get('/refresh_tokeni', 'Api\AuthController@refreshToken');
 
 //auth controller methods
 Route::middleware('auth:api')->get('/test/{id}', 'Api\AuthController@test');
