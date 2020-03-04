@@ -201,3 +201,20 @@ namespace App\Http\Controllers\SwaggerAnnotations;
  *       }
  * )
  */
+
+ /**
+ * @OA\Post(
+ *      path="/api/test_for_pagination",
+ *      operationId="testForPagination",
+ *      tags={"Test"},
+ *      summary="insert roles information",
+ *      description="insert roles information",
+ *      @OA\Response(response=200, description="successful operation"),
+ *      @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent()),
+ *      @OA\Response(response=400, description="Bad request",@OA\JsonContent()),
+ *      @OA\Response(response=401, description="Not Authorized"),
+ *      @OA\Response(response=404, description="Resource Not Found", @OA\JsonContent()),
+ *      security={
+ *           {"bearerAuth": {}}
+ *       }
+ * )

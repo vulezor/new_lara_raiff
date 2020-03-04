@@ -29,3 +29,5 @@ Route::middleware('auth:api')->get('/test/{id}', 'Api\AuthController@test');
 Route::middleware('auth:api')->post('/insert_roles', 'Api\AuthController@insert_roles');
 Route::middleware('auth:api')->post('/logout', 'Api\AuthController@logout');
 Route::middleware('auth:api')->get('/get_current_user', 'Api\AuthController@getCurrentUser');
+
+Route::post('/test_for_pagination', 'Api\AuthController@testForPagination');
