@@ -91,7 +91,7 @@ class AuthController extends Controller
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => 'f5Y1zT2IBZhNSnJfYocfHI2NFgXpNTMQw8YvEeId',
+                'client_secret' => 'cyIFQoPGJwmpBRtUuQZi85n4Mn8O2lHr7xfgXKiZ',
                 'username' => $request->input('email'),
                 'password' => $request->input('password'),
             ],
@@ -112,7 +112,7 @@ class AuthController extends Controller
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $request->getContent(),//$request->input('refresh_token'),
                 'client_id' => '2',
-                'client_secret' => 'f5Y1zT2IBZhNSnJfYocfHI2NFgXpNTMQw8YvEeId',
+                'client_secret' => 'cyIFQoPGJwmpBRtUuQZi85n4Mn8O2lHr7xfgXKiZ',
             ],
         ]);
         return json_decode((string) $response->getBody(), true);
@@ -120,15 +120,16 @@ class AuthController extends Controller
 
 
     public function testForPagination(Request $request){
+
         $filters = [
             ['active', false],
-            ['name', 'like', '%Mi%']
+            ['name', 'like', '%%']
         ];
         $stations = User::where(function($query) use ($filters) {
             foreach ($filters as $filter) {
                 $query->where(...$filter);
             }
-        })->paginate(2);
+        })->paginate($request->get('per_page'));
         return response()->json($stations);
     } 
 }
